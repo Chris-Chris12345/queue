@@ -22,45 +22,47 @@ que = [None,20,None,None]
 
 
 class Queue:
-    def __init__(self,size):
+    def __init__(self, size):
         self.queue = [None] * size
         self.front = 0
         self.rear = 0
         self.size = size
         self.available = size
-    
-    def enqueue(self,item):
+
+    def enqueue(self, item):
         if self.available == 0:
             print("The queue is full!")
         else:
             self.queue[self.rear] = item
             self.rear = (self.rear + 1) % self.size
-            self.available = self.available - 1
-    
-    def dequeue(self,item):
-        if self.available == 0:
+            self.available -= 1
+
+    def dequeue(self):
+        if self.available == self.size:
             print("The queue is empty!")
         else:
+            served = self.queue[self.front]
             self.queue[self.front] = None
             self.front = (self.front + 1) % self.size
-            self.available = self.available + 1
+            self.available += 1
+            print("Served:", served)
 
-    def peak(self):
-        print(self.queue[self.front])
-
-    def getrear(self):
-        print(self.queue[self.rear])
+    def peek(self):
+        if self.available == self.size:
+            print("Queue is empty")
+        else:
+            print("Front customer:", self.queue[self.front])
 
     def show(self):
-        print(self.queue)
+        print("Full queue:", self.queue)
 
-que1 = Queue(3)
 
-que1.enqueue(10)
-que1.peak()
-que1.show()
-que1.enqueue(20)
-que1.enqueue(30)
-que1.enqueue(40)
-que1.getrear()
-que1.show()
+que = Queue(5)
+
+que.enqueue("Riya")
+que.enqueue("Aman")
+que.enqueue("Kabir")
+que.dequeue()
+que.enqueue("Simran")
+que.peek()
+que.show()
